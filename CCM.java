@@ -5,7 +5,7 @@ public class CCM
 {
 	static Queue<Transaction> q = new LinkedList<Transaction>();
 	static boolean DB_locked= false;
-	public static boolean Lock(Flight F, Transaction T)
+	public static boolean Lock(Transaction T)
 	{
 		if (DB_locked==false)
 		{
@@ -19,7 +19,7 @@ public class CCM
 		}
 		
 	}
-	public static void Unlock(Flight F, Transaction T)
+	public static void Unlock(Transaction T)
 	{
 		if (q.isEmpty()==false)
 		{
