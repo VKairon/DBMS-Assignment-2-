@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 
 public class Flight 
 {
@@ -5,15 +6,17 @@ public class Flight
 	int seatsAvail;
 	int seatsReserved;
 	int totalSeats;
-	int[] seats = new int[totalSeats];
+	ArrayList<Integer> seats = new ArrayList<Integer>(totalSeats);
 	
-	public Flight(int ts)
+	public Flight(String name,int ts)
 	{
 		totalSeats = ts;
-		for(int i = 0; i<totalSeats; i++)
-		{
-			seats[i] = -1;
-		}
+		seatsAvail = ts;
+		seatsReserved = 0;
+//		for(int i = 0; i<totalSeats; i++)
+//		{
+//			seats.set(i, -1);
+//		}
 	}
 
 }
