@@ -2,35 +2,60 @@ import java.util.ArrayList;
 
 public class Flight_Database 
 {
-	static ArrayList<Flight> FlightList = new ArrayList<Flight>();
-	static ArrayList<Passenger> PassList = new ArrayList<Passenger>();
-	
+	static ArrayList<Flight> FlightList; 
+	static ArrayList<Passenger> PassList = new ArrayList<Passenger>(50);
+
 	public static void initializeDB()
 	{
-	Flight F1 = new Flight("Air Asia", 365);
-	Flight F2 = new Flight("Vistara Airlines",210);
-	Flight F3 = new Flight("Emirates",340);
-	
-	FlightList.add(F1);
-	FlightList.add(F2);
-	FlightList.add(F3);
-	
-//	Passenger P1 = new Passenger();
-//	PassList.add(P1);
+
+		FlightList =  new ArrayList<Flight>();
+		Flight F1 = new Flight("Air Asia", 365);
+		Flight F2 = new Flight("Vistara Airlines",210);
+		Flight F3 = new Flight("Emirates",340);
+		Flight F4 = new Flight("Lufthansa",298);
+		Flight F5 = new Flight("Indigo",225);
+
+		FlightList.add(F1);
+//		System.out.println("Seats = " + FlightList.get(0).seatsAvail);
+		FlightList.add(F2);
+		FlightList.add(F3);
+		FlightList.add(F4);
+		FlightList.add(F5);
+
+		Passenger P1 = new Passenger(1);
+		Passenger P2 = new Passenger(2);
+		Passenger P3 = new Passenger(3);
+		PassList.add(P1);
+		PassList.add(P2);
+		PassList.add(P3);
+		
 	}
 	public static Passenger if_ID_Exists(int id)
 	{
-		
+
 		for(int i = 0; i < PassList.size(); i++)
 		{
 			if(id == PassList.get(i).id)
 			{
+				System.out.println("ID "+ id+ " Pass "+ PassList.get(i).id);
 				return PassList.get(i);
 			}
 		}
 		return null;
 	}
-	
+	public static int if_ID_Exists_getid(int id)
+	{
+
+		for(int i = 0; i < PassList.size(); i++)
+		{
+			if(id == PassList.get(i).id)
+			{
+				return i;
+			}
+		}
+		return -1;
+	}
+
 	public static boolean if_Flight_Exists(Flight f)
 	{
 		if (FlightList.contains(f))
@@ -42,5 +67,14 @@ public class Flight_Database
 			return false;
 		}
 	}
-	
+	public static boolean passenger_has_flight(Flight f, int id)
+	{
+		for(int i=0;i<f.seats.size();i++)
+		{
+			if(f.seats.get(i) == id)
+				return true;
+		}
+
+		return false;
+	}
 }

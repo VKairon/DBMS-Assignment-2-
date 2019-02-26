@@ -10,6 +10,7 @@ public class Flight
 	
 	public Flight(String name,int ts)
 	{
+		this.name = name;
 		totalSeats = ts;
 		seatsAvail = ts;
 		seatsReserved = 0;
