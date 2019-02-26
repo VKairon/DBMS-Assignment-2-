@@ -6,7 +6,7 @@ public class CCM
 	static Queue<Transaction> q = new LinkedList<Transaction>();
 	static boolean DB_locked= false;
 	
-	public static boolean Lock(Transaction T)
+	public static synchronized boolean Lock(Transaction T)
 	{
 		if (DB_locked==false)
 		{
@@ -17,6 +17,7 @@ public class CCM
 		else
 		{
 			q.add(T);
+			System.out.println("Transaction added to queue = " + T.transNum);
 			return false;
 		}
 		
@@ -32,7 +33,7 @@ public class CCM
 		else
 		{
 			Transaction T2 = q.remove();
-			System.out.println("Unlocking transaction - " + T2.transNum);
+			System.out.println("Removing transaction from queue - " + T2.transNum);
 
 			//thread.notify
 		}

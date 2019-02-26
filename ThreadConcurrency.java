@@ -18,10 +18,10 @@ class ThreadConcurrency implements Runnable {
 	public void run() {
 		//		System.out.println("Running " +  threadName);
 		try {
-			System.out.println("Running " +  threadName);
+//			System.out.println("Running " +  threadName);
 //			while(CCM.DB_locked == false)
 //			{
-//				System.out.println(threadName + " unlocked");
+//				System.out.println("Database unlocked for " + threadName );
 				int random = rand.nextInt((5 - 1) + 1) + 1;
 //				System.out.println("For " +  threadName);
 				System.out.println("For " +  threadName+" Transaction Number - " + random);
@@ -49,13 +49,14 @@ class ThreadConcurrency implements Runnable {
 					trans.Total_Reservations();
 					break;
 				case 5: 
-//					int r1 = rand.nextInt((5 - 1) + 1) + 1;
-//					int r2 = rand.nextInt((5 - 1) + 1) + 1;
-//					System.out.println("Flight 1 = " + r1);
-//					System.out.println("Flight 2 = " + r2);
-					Flight f1 = Flight_Database.FlightList.get(0);
-					System.out.println("Flight 1 = " + f1.name);
-					Flight f2 = Flight_Database.FlightList.get(1);
+					int r1 = rand.nextInt((5 - 1) + 1) + 1;
+					int r2 = rand.nextInt((5 - 1) + 1) + 1;
+					//check that r1!=r2
+					Flight f1 = Flight_Database.FlightList.get(r1-1);
+					Flight f2 = Flight_Database.FlightList.get(r2-1);
+					System.out.println("Transfers: Flight 1 = " + f1.name);
+					System.out.println("Transfers: Flight 2 = " + f2.name);
+					
 //					id = rand.nextInt((10 - 1) + 1) + 1;
 					id = 1;
 					System.out.println("Transaction 5, id = " + id);
@@ -75,7 +76,8 @@ class ThreadConcurrency implements Runnable {
 	public void start() 
 	{
 //		System.out.println("Starting " +  threadName );
-			if (t == null) {
+			if (t == null) 
+			{
 				t = new Thread (this, threadName);
 				t.start ();
 			}
@@ -85,8 +87,10 @@ class ThreadConcurrency implements Runnable {
 	{
 		ThreadConcurrency t1 = new ThreadConcurrency("Thread 1");
 		ThreadConcurrency t2 = new ThreadConcurrency("Thread 2");
+		ThreadConcurrency t3 = new ThreadConcurrency("Thread 3");
 		t1.start();
 		t2.start();
+		t3.start();
 	}
 }
 

@@ -8,6 +8,10 @@ public class Transaction
 		transNum = 1;
 		if(id>0)
 		{
+			while(CCM.DB_locked == true)
+			{
+				
+			}
 			CCM.Lock(this);
 			if(f.seatsAvail>0)
 			{
@@ -54,12 +58,17 @@ public class Transaction
 		}
 
 		CCM.Unlock(this);
+		
 	}
 	public void Cancel(Flight f, int i)
 	{
 		transNum = 2;
 		if(i>0)
 		{
+			while(CCM.DB_locked == true)
+			{
+				
+			}
 			CCM.Lock(this);
 			//thread.sleep(50);
 			if((Flight_Database.if_Flight_Exists(f)==true)&&(Flight_Database.if_ID_Exists(i)!=null))
@@ -94,6 +103,10 @@ public class Transaction
 		transNum = 3;
 		if(id>0)
 		{
+			while(CCM.DB_locked == true)
+			{
+				
+			}
 			CCM.Lock(this);
 			if (Flight_Database.if_ID_Exists(id)!=null)
 			{
@@ -118,8 +131,13 @@ public class Transaction
 	}
 	public int Total_Reservations()
 	{
+		
 		transNum = 4;
 		int sum = 0;
+		while(CCM.DB_locked == true)
+		{
+			
+		}
 		CCM.Lock(this);
 		for(int i = 0; i < Flight_Database.FlightList.size(); i++)
 		{
@@ -135,6 +153,10 @@ public class Transaction
 	public void Transfer(Flight F1, Flight F2, int i) throws InterruptedException
 	{
 		transNum = 5;
+		while(CCM.DB_locked == true)
+		{
+			
+		}
 		CCM.Lock(this);
 		if(Flight_Database.if_Flight_Exists(F1)&&(Flight_Database.if_Flight_Exists(F2)))
 		{
