@@ -2,6 +2,7 @@ import java.util.ArrayList;
 
 public class Passenger 
 {
+	boolean isLocked = false;
 	int id;
 	ArrayList<Flight> flights = new ArrayList<Flight>();
 	

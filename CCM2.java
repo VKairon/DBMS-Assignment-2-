@@ -36,7 +36,7 @@ public class CCM2
 		{
 
 			System.out.println("Locking transaction - " + T.transNum +" and flight " + F.name);
-			flight_locked=true;
+			F.isLocked=true;
 			return true; //lock granted
 		}
 		else
@@ -46,14 +46,14 @@ public class CCM2
 			case 'S': 
 				if (flightMap.get(F).get(0).transNum==T.transNum)
 				{
-					flight_locked=true;
+					F.isLocked=true;
 					return true; //lock granted
 				}
 				else
 				{
 					if (flightMap.get(F).get(0).lockType=='S')
 						{
-							flight_locked=true;
+							F.isLocked=true;
 							return true; //lock granted
 						}
 					else
@@ -67,7 +67,7 @@ public class CCM2
 			case 'X':
 				if (flightMap.get(F).get(0).transNum==T.transNum)
 				{
-					flight_locked=true;
+					F.isLocked=true;
 					return true; //lock granted
 				}
 				else
@@ -88,7 +88,7 @@ public class CCM2
 		if ((passMap.get(P).isEmpty()))
 		{
 			System.out.println("Locking transaction - " + T.transNum +" and passenger no. " + P.id);
-			pass_locked=true;
+			P.isLocked=true;
 			return true;
 		}
 		else
@@ -110,7 +110,7 @@ public class CCM2
 		if (flightMap.get(F).isEmpty())//if flight object F in hashmap does not have any mapped values
 		{
 			System.out.println("Unlocked Flight F = " + F.name);
-			flight_locked = false;
+			F.isLocked = false;
 		}
 		else
 		{
@@ -128,7 +128,7 @@ public class CCM2
 		if (passMap.get(P).isEmpty()) //if passenger object P is unlocked based on hashmap
 		{
 			System.out.println("Unlocked Passenger P = " +P.id);
-			pass_locked = false;
+			P.isLocked = false;
 
 		}
 		else

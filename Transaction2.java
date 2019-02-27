@@ -8,11 +8,21 @@ public class Transaction2
 	{
 		transNum = 1;
 		Passenger p = Flight_Database.if_ID_Exists(id);
-		if((id>0)&& (p!=null))
+		if((id>0))
 		{
-			while((CCM2.Lock_Pass(p,this,'S') == true ||(CCM2.Lock_Pass(p,this,'X') == true)) && ((CCM2.Lock_Flight(f, this,'S') == true) ||(CCM2.Lock_Flight(f, this,'X') == true)))  
+			if(p == null)
+			{
+				while(f.isLocked == true)
+				{
+					
+				}
+			}
+			else
+			{
+			while((p.isLocked == true) && ((f.isLocked == true)))  
 			{
 
+			}
 			}
 			CCM2.Lock_Flight(f, this, 'S');
 			CCM2.Lock_Pass(p,this,'S');
@@ -35,12 +45,19 @@ public class Transaction2
 						f.seatsReserved+=1;
 						f.seats.add(id);
 						CCM2.Lock_Pass(p,this,'X');
-						if (Flight_Database.if_ID_Exists(id)!=null)
+						if (p!=null)
 						{
-
-							p.flights.add(f);
+							if(p.passenger_has_flight(f))
+							{
+								System.out.println("Duplicate Reservation Attempted!");
+								return;
+							}
+							else
+							{
+								p.flights.add(f);
+							}
 						}
-						else
+						else if(p == null)
 						{
 							Passenger p2 = new Passenger(id);
 							p2.flights.add(f);
@@ -73,8 +90,7 @@ public class Transaction2
 		Passenger p1 = Flight_Database.if_ID_Exists(i);
 		if((i>0)&& (p1!=null))
 		{
-
-			while((CCM2.Lock_Pass(p1,this,'S') == true ||(CCM2.Lock_Pass(p1,this,'X') == true)) && ((CCM2.Lock_Flight(f, this,'S') == true) ||(CCM2.Lock_Flight(f, this,'X') == true)))
+			while((p1.isLocked == true) && ((f.isLocked == true)))  
 			{
 
 			}
@@ -115,25 +131,31 @@ public class Transaction2
 		Passenger P = Flight_Database.if_ID_Exists(id);
 		if((id>0)&& (P!=null))
 		{
-			while((CCM2.Lock_Pass(P,this,'S') == true) ||(CCM2.Lock_Pass(P,this,'X') == true))
+			while((P.isLocked == true))  
 			{
 
 			}
 			if (P!=null)
 			{
-				//				Passenger p = Flight_Database.if_ID_Exists(id);
+				//Passenger p = Flight_Database.if_ID_Exists(id);
 				CCM2.Lock_Pass(P,this,'S');
-				System.out.println("Passenger ID: " + id);
+				System.out.println();
+				System.out.println("Flights for Passenger ID: " + id);
+
 				for(int i = 0; i < P.flights.size(); i++)
 				{
 					System.out.println("Flight " + (i+1) + ": " + P.flights.get(i).name);
 				}
+				
+				System.out.println();
 			}
 			CCM2.Unlock_Pass(P,this);
+			return;
 		}
 		else
 		{
 			System.out.println("Sorry! Passenger ID does not exist!");
+			return;
 
 		}
 	}
@@ -144,7 +166,7 @@ public class Transaction2
 		for (Map.Entry<Flight,ArrayList<TransactionStatus>> entry : CCM2.flightMap.entrySet()) 
 		{
 			Flight f = entry.getKey();
-			while((CCM2.Lock_Flight(f, this,'S') == true) ||(CCM2.Lock_Flight(f, this,'X') == true))
+			while((f.isLocked == true))
 			{
 
 			}
@@ -170,7 +192,7 @@ public class Transaction2
 
 		if((i>0)&& (P!=null))
 		{
-			while((CCM2.Lock_Pass(P,this,'S') == true ||(CCM2.Lock_Pass(P,this,'X') == true)) && ((CCM2.Lock_Flight(F1, this,'S') == true) ||(CCM2.Lock_Flight(F1, this,'X') == true))&&((CCM2.Lock_Flight(F2, this,'S') == true) ||(CCM2.Lock_Flight(F2, this,'X') == true)))
+			while((P.isLocked == true) && (F1.isLocked == true) && (F2.isLocked == true))  
 			{
 
 			}

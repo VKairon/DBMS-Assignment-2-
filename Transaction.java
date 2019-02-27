@@ -20,26 +20,36 @@ public class Transaction
 				f.seatsReserved+=1;
 //				System.out.println("the id no = "+ id);
 //				System.out.println(f.seats.size()+f.totalSeats);
+				Passenger p = Flight_Database.if_ID_Exists(id);
 				if(f.seats.size()<f.totalSeats)
 				{
 					//check for duplicate id too
 					if(f.seats.contains(id))
 					{
 						System.out.println("Duplicate ID!");
+						return;
 					}
 					else
 					{
 						f.seats.add(id);
-						if (Flight_Database.if_ID_Exists(id)!=null)
+						if (p!=null)
 						{
-							Passenger p = Flight_Database.if_ID_Exists(id);
-							p.flights.add(f);
+							if(p.passenger_has_flight(f))
+							{
+								System.out.println("Duplicate Reservation Attempted!");
+								return;
+							}
+							else
+							{
+								p.flights.add(f);
+							}
+							
 						}
 						else
 						{
-							Passenger p = new Passenger(id);
-							p.flights.add(f);
-							Flight_Database.PassList.add(p);
+							Passenger p2 = new Passenger(id);
+							p2.flights.add(f);
+							Flight_Database.PassList.add(p2);
 						}
 					}
 
@@ -48,12 +58,14 @@ public class Transaction
 			else
 			{
 				System.out.println("Sorry! No seats available in flight " + f.name);
+				return;
 			}
 
 		}
 		else
 		{
 			System.out.println("Error! Wrong Passenger ID");
+			return;
 
 		}
 

@@ -2,6 +2,7 @@ import java.util.ArrayList;
 
 public class Flight 
 {
+	boolean isLocked = false;
 	String name;
 	int seatsAvail;
 	int seatsReserved;

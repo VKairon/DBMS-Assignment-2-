@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Random;
 
 class ThreadConcurrency implements Runnable {
@@ -85,12 +86,35 @@ class ThreadConcurrency implements Runnable {
 	
 	public static void main(String[] args) throws InterruptedException
 	{
-		ThreadConcurrency t1 = new ThreadConcurrency("Thread 1");
-		ThreadConcurrency t2 = new ThreadConcurrency("Thread 2");
-		ThreadConcurrency t3 = new ThreadConcurrency("Thread 3");
-		t1.start();
-		t2.start();
-		t3.start();
+		long startTime = System.currentTimeMillis();
+		ArrayList<Thread> threads = new ArrayList<Thread>();
+		
+		for(int i = 1; i <= 5; i++)
+		{
+//			int random = new Random().nextInt(5) + 1;
+			ThreadConcurrency2 t1 = new ThreadConcurrency2("");
+			ThreadConcurrency2 t2 = new ThreadConcurrency2("");
+			ThreadConcurrency2 t3 = new ThreadConcurrency2("");
+			t1.start();
+			threads.add(t1);
+			threads.add(t2);
+			threads.add(t3);
+		}
+		
+		for(Thread thread: threads)
+		{
+			thread.join();
+		}
+		
+		long stopTime = System.currentTimeMillis();
+		System.out.println();
+		System.out.println("Time taken = " + (stopTime-startTime) + " milliseconds.");
+//		ThreadConcurrency2 t1 = new ThreadConcurrency2("Thread 1");
+//		ThreadConcurrency2 t2 = new ThreadConcurrency2("Thread 2");
+//		ThreadConcurrency2 t3 = new ThreadConcurrency2("Thread 3");
+//		t1.start();
+//		t2.start();
+//		t3.start();
 	}
 }
 
