@@ -30,6 +30,8 @@ public class CCM2
 	}
 	public static synchronized boolean Lock_Flight(Flight F, Transaction2 T, char lockType)
 	{
+		if(flightMap.containsKey(F))
+		{
 		if ((flightMap.get(F).isEmpty()))
 		{
 
@@ -77,10 +79,12 @@ public class CCM2
 				}
 			}
 		}
+		}
 		return false;
 	}
 	public static synchronized boolean Lock_Pass(Passenger P, Transaction2 T, char lockType)
 	{
+		if(passMap.containsKey(P)) {
 		if ((passMap.get(P).isEmpty()))
 		{
 			System.out.println("Locking transaction - " + T.transNum +" and passenger no. " + P.id);
@@ -94,10 +98,15 @@ public class CCM2
 			System.out.println("Transaction added = " + T.transNum + " and passenger no. " + P.id);
 			return false;
 		}
+		}
+		else
+			return false;
 
 	}
 	public static void Unlock_Flight(Flight F,Transaction2 T)
 	{
+		if(flightMap.containsKey(F))
+		{
 		if (flightMap.get(F).isEmpty())//if flight object F in hashmap does not have any mapped values
 		{
 			System.out.println("Unlocked Flight F = " + F.name);
@@ -109,10 +118,13 @@ public class CCM2
 			flightMap.get(F).remove(0);
 			System.out.println("Removing transaction " + T.transNum +" from flight " +F.name + " in hashmap");
 		}
+		}
+		
 	}
 
 	public static void Unlock_Pass(Passenger P,Transaction2 T)
 	{
+		if(passMap.containsKey(P)) {
 		if (passMap.get(P).isEmpty()) //if passenger object P is unlocked based on hashmap
 		{
 			System.out.println("Unlocked Passenger P = " +P.id);
@@ -125,5 +137,8 @@ public class CCM2
 			passMap.get(P).remove(0);
 			System.out.println("Removing transaction " + T.transNum +" from passenger no. " + P.id +" in hashmap");
 		}
+		}
+		
+		
 	}
 }

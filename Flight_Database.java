@@ -25,9 +25,15 @@ public class Flight_Database
 		Passenger P1 = new Passenger(1);
 		Passenger P2 = new Passenger(2);
 		Passenger P3 = new Passenger(3);
+		Passenger P4 = new Passenger(4);
+		Passenger P5 = new Passenger(5);
+		Passenger P6 = new Passenger(6);
 		PassList.add(P1);
 		PassList.add(P2);
 		PassList.add(P3);
+		PassList.add(P4);
+		PassList.add(P5);
+		PassList.add(P6);
 		
 	}
 	public static Passenger if_ID_Exists(int id)
