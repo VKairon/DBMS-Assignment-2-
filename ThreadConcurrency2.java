@@ -57,8 +57,8 @@ class ThreadConcurrency2 implements Runnable {
 					System.out.println("Transfers: Flight 1 = " + f1.name);
 					System.out.println("Transfers: Flight 2 = " + f2.name);
 					
-//					id = rand.nextInt((10 - 1) + 1) + 1;
-					id = 1;
+					id = rand.nextInt((10 - 1) + 1) + 1;
+//					id = 1;
 					System.out.println("Transaction 5, id = " + id);
 					trans.Transfer(f1, f2, id);
 					break;
